@@ -1,4 +1,10 @@
 <script setup>
+    import { useForm, useField } from 'vee-validate'
+
+    const { handleSubmit } = useForm()
+
+    const email = useField('email')
+    const password = useField('password')
 </script>
 
 <template>
@@ -24,11 +30,13 @@
                 type="email"
                 label="Email"
                 bg-color="blue-grey-lighten-4"
+                v-model="email.value.value"
             />
             <v-text-field
                 type="password"
                 label="Password"
                 bg-color="blue-grey-lighten-4"
+                v-model="password.value.value"
             />
 
             <v-btn
