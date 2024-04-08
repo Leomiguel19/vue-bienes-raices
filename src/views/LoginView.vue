@@ -33,11 +33,11 @@
         </v-card-subtitle>
 
         <v-alert
+            v-if="auth.hasError"
             class="my-5" 
-            title="Alert title"
             type="error"
+            :title="auth.errorMsg"
         ></v-alert>
-
 
         <v-form class="mt-5">
             <v-text-field
