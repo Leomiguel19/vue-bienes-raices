@@ -6,14 +6,19 @@ export const useAuthStore = defineStore('auth', () => {
     
     const auth = useFirebaseAuth()
 
+    const errorCodes = {
+        'auth/invalid-credential' : 'Credenciales invalidas',
+        'auth/user-not-found' : 'Usuario no encontrado',
+        'auth/wrong-password' : 'El password es incorrecto',
+    }
+
     const login = ({email, password}) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 console.log(userCredential)
             })
             .catch((error) => {
-                console.log(error.code)
-                console.log(error.message)
+                console.log(errorCodes[error.code])
             })
     }
 
