@@ -2,10 +2,12 @@
     import { useForm, useField } from 'vee-validate'
     import { collection, addDoc } from 'firebase/firestore'
     import { useFirestore } from 'vuefire'
+    import { useRouter } from 'vue-router'
     import { validationSchema, imageSchema } from '@/validation/propiedadSchema'
 
     const items = [1, 2, 3, 4, 5]
 
+    const router = useRouter()
     const db = useFirestore()
 
     const { handleSubmit } = useForm({ 
@@ -22,21 +24,21 @@
     const wc = useField('wc')
     const estacionamiento = useField('estacionamiento')
     const descripcion = useField('descripcion')
-    const alberca = useField('alberca')
+    const alberca = useField('alberca', null, {
+        initialValue: false
+    })
 
     const submit = handleSubmit(async(values) => {
 
-        const { imagen, ...propiedades } = values
-        console.log(propiedades)
-
-        return
+        const { imagen, ...propiedad } = values
 
         const docRef = await addDoc(collection(db, "propiedades"), {
-            name: 'Tokyo',
-            country: "Japan"
+            ...propiedad
         })
-        console.log("Document", docRef.id)
-    })
+        if(docRef.id){
+            router.push({name: 'admin-propiedades'})
+        }
+})
 </script>
 
 <template>
