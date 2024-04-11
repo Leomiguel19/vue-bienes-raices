@@ -18,6 +18,7 @@
     const wc = useField('wc')
     const estacionamiento = useField('estacionamiento')
     const descripcion = useField('descripcion')
+    const alberca = useField('alberca')
 
     const submit = handleSubmit((values) => {
         console.log(values)
@@ -99,7 +100,11 @@
                 v-model="descripcion.value.value"
                 :error-messages="descripcion.errorMessage.value"
             ></v-textarea>
-            <v-checkbox label="Alberca"/>
+            <v-checkbox 
+                label="Alberca"
+                v-model="alberca.value.value"
+                :error-messages="alberca.errorMessage.value"
+            />
 
             <v-btn
                 color="pink-accent-3"
