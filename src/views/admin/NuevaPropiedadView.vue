@@ -1,5 +1,19 @@
 <script setup>
-const items = [1, 2, 3, 4, 5]
+    import { useForm, useField } from 'vee-validate'
+    import { validationSchema, imageSchema } from '@/validation/propiedadSchema';
+
+    const { handleSubmit } = useForm({ 
+        validationSchema: {
+            ...validationSchema,
+            ...imageSchema,
+        }
+    })
+
+    const items = [1, 2, 3, 4, 5]
+
+    const submit = handleSubmit((values) => {
+        console.log(values)
+    })
 </script>
 
 <template>
@@ -68,6 +82,7 @@ const items = [1, 2, 3, 4, 5]
             <v-btn
                 color="pink-accent-3"
                 block
+                @click="submit"
             >
                 Agregar Propiedad
             </v-btn>
