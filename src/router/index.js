@@ -49,6 +49,7 @@ router.beforeEach(async(to, from, next) => {
     // Comprobar que el usuario este autenticado 
     try {
       await authenticateUser()
+      next()
     } catch (error) {
       console.log(error)
       next({name: 'login'})
