@@ -1,7 +1,7 @@
 <script setup>
     import usePropiedades from '@/composables/usePropiedades';
 
-    const { propiedadesCollection } = usePropiedades()
+    const { propiedadesCollection, propertyPrice } = usePropiedades()
 </script>
 
 <template>
@@ -22,13 +22,13 @@
                 border
             >
                 <template v-slot:prepend>
-                    <v-list-item-media start="true">
+                    <v-list-item-media :start="true">
                         <img width="180" :src="propiedad.imagen">
                     </v-list-item-media>
                 </template>
 
                 <v-list-item-title>{{ propiedad.titulo }}</v-list-item-title>
-                <v-list-item-subtitle>{{ propiedad.precio }}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{ propertyPrice(propiedad.precio) }}</v-list-item-subtitle>
 
                 <template v-slot:append>
                     <v-btn
