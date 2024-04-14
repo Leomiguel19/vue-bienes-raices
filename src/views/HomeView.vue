@@ -9,10 +9,10 @@
     <h1 class="text-center text-h3 font-weight-bold my-5">Nuestras Propiedades</h1>
 
     <v-card flat class="py-10">
-        <v-card-tilt>
+        <v-card-title>
             Búsqueda
             <v-checkbox label="Alberca" v-model="alberca"/>
-        </v-card-tilt>
+        </v-card-title>
 
         <v-row>
             <Propiedad
