@@ -1,8 +1,9 @@
 <script setup>
     import usePropiedades from '@/composables/usePropiedades'
     import Propiedad from '@/components/Propiedad.vue'
-
-    const { propiedadesCollection, propertyPrice } = usePropiedades()
+    import { propertyPrice } from '@/helpers'
+    
+    const { propiedadesCollection } = usePropiedades()
 
     console.log(propiedadesCollection)
 </script>
