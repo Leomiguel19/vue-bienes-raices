@@ -1,6 +1,6 @@
 <script setup>
     import { watch } from 'vue'
-    import { useRoute } from 'vue-router'
+    import { useRoute, useRouter } from 'vue-router'
     import { useFirestore, useDocument } from 'vuefire'
     import { doc, updateDoc } from 'firebase/firestore'
     import { useField, useForm } from 'vee-validate'
@@ -29,7 +29,9 @@
     const estacionamiento = useField('estacionamiento')
     const descripcion = useField('descripcion')
     const alberca = useField('alberca')
+
     const route = useRoute() 
+    const router = useRouter() 
 
     // Obtener la propiedad a editar
     const db = useFirestore()
@@ -44,10 +46,21 @@
         estacionamiento.value.value = propiedad.estacionamiento
         descripcion.value.value = propiedad.descripcion
         alberca.value.value = propiedad.alberca
-        center.value = propiedad.ubicacion
+        center.value = propiedad.ubicacion        
     })
-    const submit = handleSubmit(values => {
-        
+
+    const submit = handleSubmit(async values => {
+        const { imagen, ...propiedad } = values
+        if(image.value){
+            console.log('Hay una imagen nueva')
+        }else{
+            const data = {
+                ...propiedad,
+                ubicacion: center.value
+            }
+            await updateDoc(docRef, data)
+        }
+        router.push({name: 'admin-propiedades'})
     })
 </script>  
 
