@@ -2,19 +2,21 @@
     import usePropiedades from '@/composables/usePropiedades'
     import Propiedad from '@/components/Propiedad.vue'
     import { propertyPrice } from '@/helpers'
-    
-    const { propiedadesCollection } = usePropiedades()
-
-    console.log(propiedadesCollection)
+    const { alberca, propiedadesFiltradas } = usePropiedades()
 </script>
 
 <template>
     <h1 class="text-center text-h3 font-weight-bold my-5">Nuestras Propiedades</h1>
 
     <v-card flat class="py-10">
+        <v-card-tilt>
+            Búsqueda
+            <v-checkbox label="Alberca" v-model="alberca"/>
+        </v-card-tilt>
+
         <v-row>
             <Propiedad
-                v-for="propiedad in propiedadesCollection"
+                v-for="propiedad in propiedadesFiltradas"
                 :key="propiedad.id"
                 :propiedad="propiedad"
                 :price="propertyPrice"
