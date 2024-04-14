@@ -1,21 +1,28 @@
 import { ref, computed } from 'vue'
 import { collection, doc, deleteDoc } from 'firebase/firestore'
-import { useFirestore, useCollection } from 'vuefire'
+import { ref as storageRef, deleteObject } from 'firebase/storage'
+import { useFirestore, useCollection, useFirebaseStorage } from 'vuefire'
 
 export default function usePropiedades(){
     const alberca = ref(false)
 
+    const storage = useFirebaseStorage()
     const db = useFirestore()
     const propiedadesCollection = useCollection(collection(db, 'propiedades'))
 
-    async function deleteItem(id){
+    async function deleteItem(id, urlImage){
         if(confirm('Deseas elmininar esta propiedad?')){
             const docRef = doc(db, 'propiedades', id)
-            await deleteDoc(docRef)
+            const imageRef = storageRef(storage, urlImage)
+
+            await Promise.all([
+                deleteDoc(docRef),
+                deleteObject(imageRef)
+            ])
         }
     }
 
-    const propiedadesFiltradas = computed(() => {
+    const filteredItems = computed(() => {
         return alberca.value ?
             propiedadesCollection.value.filter(propiedades => propiedades.alberca) :
             propiedadesCollection.value
@@ -24,7 +31,7 @@ export default function usePropiedades(){
     return {
         alberca,
         propiedadesCollection,
-        propiedadesFiltradas,
+        filteredItems,
         deleteItem
     }
 }
